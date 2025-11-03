@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.geometry.Insets?>
+
+<BorderPane xmlns="http://javafx.com/javafx/8.0.171"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="org.example.rideshareapp.MainController">
+
+    <left>
+        <VBox spacing="10" prefWidth="180" style="-fx-background-color: #1f2937;">
+            <padding>
+                <Insets top="15" right="15" bottom="15" left="15"/>
+            </padding>
+
+            <Button text="Profile" onAction="#showProfile"
+                    maxWidth="Infinity"
+                    style="-fx-background-color: #374151; -fx-text-fill: white;"/>
+
+            <Button text="Ride Request" onAction="#showRideRequest"
+                    maxWidth="Infinity"
+                    style="-fx-background-color: #374151; -fx-text-fill: white;"/>
+
+            <Button text="Map" onAction="#showMap"
+                    maxWidth="Infinity"
+                    style="-fx-background-color: #374151; -fx-text-fill: white;"/>
+
+            <Separator/>
+
+            <Button text="Logout" onAction="#logout"
+                    maxWidth="Infinity"
+                    style="-fx-background-color: #ef4444; -fx-text-fill: white;"/>
+        </VBox>
+    </left>
+
+    <center>
+        <!-- this is where profile / ride request / map will be loaded -->
+        <StackPane fx:id="contentPane">
+            <padding>
+                <Insets top="20" right="20" bottom="20" left="20"/>
+            </padding>
+        </StackPane>
+    </center>
+</BorderPane>

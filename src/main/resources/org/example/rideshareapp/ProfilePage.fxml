@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.geometry.Insets?>
+
+<VBox xmlns="http://javafx.com/javafx/8.0.171"
+      xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="org.example.rideshareapp.ProfileController"
+      spacing="10">
+
+    <padding>
+        <Insets top="20" right="20" bottom="20" left="20"/>
+    </padding>
+
+    <Label text="Profile" style="-fx-font-size: 22;"/>
+
+    <TextField fx:id="usernameField" promptText="New username"/>
+    <PasswordField fx:id="passwordField" promptText="New password"/>
+    <TextField fx:id="phoneField" promptText="New phone number (digits only)"/>
+
+    <HBox spacing="10">
+        <Button text="Update Profile" onAction="#onUpdateProfile"/>
+        <Button text="Contact Support" onAction="#onContactSupport"/>
+    </HBox>
+
+    <!-- Payment (fixed padding) -->
+    <TitledPane text="Payment Methods" expanded="false">
+        <content>
+            <VBox spacing="8">
+                <padding>
+                    <Insets top="10" right="10" bottom="10" left="10"/>
+                </padding>
+
+                <TextField fx:id="cardField" promptText="Card # (16 digits)"/>
+                <TextField fx:id="cvvField" promptText="CVV (3 digits)"/>
+                <TextField fx:id="expField" promptText="Exp (MM/yy)"/>
+                <Button text="Add Payment" onAction="#onAddPayment"/>
+                <Label fx:id="paymentStatus"/>
+            </VBox>
+        </content>
+    </TitledPane>
+
+    <Label fx:id="statusLabel" />
+
+</VBox>
