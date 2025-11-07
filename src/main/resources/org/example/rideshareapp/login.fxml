@@ -20,7 +20,13 @@
     <TextField fx:id="usernameField" promptText="Username" maxWidth="220"/>
     <PasswordField fx:id="passwordField" promptText="Password" maxWidth="220"/>
 
-    <Button text="Login" onAction="#onLogin" maxWidth="220"/>
+    <!-- ✅ Put Login and Sign Up next to each other -->
+    <HBox spacing="10">
+        <Button text="Login" onAction="#onLogin" maxWidth="105"/>
+        <Button text="Sign Up" onAction="#onSignup" maxWidth="105"/>
+    </HBox>
+
     <Label fx:id="statusLabel" textFill="red"/>
 
 </VBox>
+
