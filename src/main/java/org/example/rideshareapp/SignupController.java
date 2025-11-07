@@ -44,7 +44,7 @@ public class SignupController {
     }
 
     @FXML
-    private void onBack() {
+    private void onBackToLogin() {
         try {
             var fx = new FXMLLoader(getClass().getResource("/org/example/rideshareapp/login.fxml"));
             Stage st = (Stage) statusLabel.getScene().getWindow();
