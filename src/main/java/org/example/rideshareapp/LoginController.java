@@ -1,8 +1,14 @@
 package org.example.rideshareapp;
+
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 
 public class LoginController {
 
@@ -31,4 +37,18 @@ public class LoginController {
             statusLabel.setText("Invalid credentials");
         }
     }
+
+    // Open the Sign-Up window
+    @FXML
+    private void onSignup() {
+        statusLabel.setText(""); // clear any message
+        try {
+            mainApp.showSignup();     // just like mainApp.showMainApp();
+        } catch (Exception e) {
+            e.printStackTrace();
+            statusLabel.setText("Unable to open Sign Up.");
+        }
+    }
+
 }
+

@@ -4,6 +4,7 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import org.example.rideshareapp.db.DB; // ✅ make sure this import is here
 
 public class Main extends Application {
 
@@ -19,6 +20,16 @@ public class Main extends Application {
     @Override
     public void start(Stage stage) throws Exception {
         this.primaryStage = stage;
+
+        // ✅ Initialize database (creates data/app.db if missing)
+        try (var conn = DB.get()) {
+            System.out.println("✅ Database ready at: " +
+                    new java.io.File("data/app.db").getAbsolutePath());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        // ✅ Load login screen (no test user)
         showLogin();
     }
 
@@ -35,6 +46,16 @@ public class Main extends Application {
         primaryStage.setScene(scene);
         primaryStage.setWidth(950);
         primaryStage.setHeight(600);
+        primaryStage.show();
+    }
+    public void showSignup() throws Exception {
+        FXMLLoader loader = new FXMLLoader(
+                getClass().getResource("/org/example/rideshareapp/signup.fxml")
+        );
+        Scene scene = new Scene(loader.load());
+
+        primaryStage.setTitle("Rideshare - Sign Up");
+        primaryStage.setScene(scene);
         primaryStage.show();
     }
 
