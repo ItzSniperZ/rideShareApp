@@ -1,4 +1,4 @@
-package org.example.rideshareapp;
+package org.example.rideshareapp.services;
 
 import java.time.YearMonth;
 import java.time.format.DateTimeFormatter;

@@ -1,4 +1,4 @@
-package org.example.rideshareapp;
+package org.example.rideshareapp.controllers;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;

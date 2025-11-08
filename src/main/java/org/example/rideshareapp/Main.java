@@ -4,7 +4,13 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import org.example.rideshareapp.controllers.LoginController;
+import org.example.rideshareapp.controllers.MainController;
 import org.example.rideshareapp.db.DB; // ✅ make sure this import is here
+import org.example.rideshareapp.services.MapService;
+import org.example.rideshareapp.services.PaymentService;
+import org.example.rideshareapp.services.ProfileService;
+import org.example.rideshareapp.services.RideRequestService;
 
 public class Main extends Application {
 
@@ -50,7 +56,7 @@ public class Main extends Application {
     }
     public void showSignup() throws Exception {
         FXMLLoader loader = new FXMLLoader(
-                getClass().getResource("/org/example/rideshareapp/signup.fxml")
+                getClass().getResource("/org/example/rideshareapp/SignupPage.fxml")
         );
         Scene scene = new Scene(loader.load());
 

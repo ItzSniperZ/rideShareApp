@@ -5,7 +5,7 @@
 
 <VBox xmlns="http://javafx.com/javafx/8.0.171"
       xmlns:fx="http://javafx.com/fxml/1"
-      fx:controller="org.example.rideshareapp.RideRequestController"
+      fx:controller="org.example.rideshareapp.controllers.RideRequestController"
       spacing="12">
 
     <Label text="Request a Ride" style="-fx-font-size: 22;"/>

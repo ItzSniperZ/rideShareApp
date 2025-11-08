@@ -6,7 +6,7 @@
 
 <VBox xmlns="http://javafx.com/javafx/8.0.171"
       xmlns:fx="http://javafx.com/fxml/1"
-      fx:controller="org.example.rideshareapp.SignupController"
+      fx:controller="org.example.rideshareapp.controllers.SignupController"
       alignment="CENTER"
       spacing="14">
 

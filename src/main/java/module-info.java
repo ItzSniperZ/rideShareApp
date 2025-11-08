@@ -19,4 +19,8 @@ module org.example.rideshareapp {
 
     // Export your base package if other modules need to compile against it
     exports org.example.rideshareapp;
+    exports org.example.rideshareapp.controllers;
+    opens org.example.rideshareapp.controllers to javafx.fxml;
+    exports org.example.rideshareapp.services;
+    opens org.example.rideshareapp.services to javafx.fxml;
 }

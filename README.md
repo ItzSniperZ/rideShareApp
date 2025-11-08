@@ -22,11 +22,13 @@ rideShareApp/
 │   ├── main/
 │   │   ├── java/org/example/rideshareapp/
 │   │   │   ├── Main.java
-│   │   │   ├── MainController.java
-│   │   │   ├── LoginController.java
-│   │   │   ├── ProfileController.java
-│   │   │   ├── RideRequestController.java
-│   │   │   ├── MapController.java
+│   │   │   ├── controllers/
+│   │   │   │   ├── MainController.java
+│   │   │   │   ├── LoginController.java
+│   │   │   │   ├── ProfileController.java
+│   │   │   │   ├── RideRequestController.java
+│   │   │   │   ├── MapController.java
+│   │   │   │   ├── SignupController.java
 │   │   │   ├── services/
 │   │   │   │   ├── ProfileService.java
 │   │   │   │   ├── PaymentService.java
@@ -37,7 +39,8 @@ rideShareApp/
 │   │       ├── main.fxml
 │   │       ├── ProfilePage.fxml
 │   │       ├── RideRequestPage.fxml
-│   │       └── MapPage.fxml
+│   │       ├── MapPage.fxml
+│   │       └── SignupPage.fxml
 │   └── module-info.java
 └── pom.xml  (or Maven config)
 ```

@@ -1,4 +1,4 @@
-package org.example.rideshareapp;
+package org.example.rideshareapp.services;
 
 public class ProfileService {
     private boolean loggedIn = false;

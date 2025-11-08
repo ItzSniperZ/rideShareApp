@@ -1,7 +1,9 @@
-package org.example.rideshareapp;
+package org.example.rideshareapp.controllers;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import org.example.rideshareapp.Main;
+import org.example.rideshareapp.services.MapService;
 
 public class RideRequestController {
 
