@@ -6,7 +6,7 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 import org.example.rideshareapp.controllers.LoginController;
 import org.example.rideshareapp.controllers.MainController;
-import org.example.rideshareapp.db.DB; // ✅ make sure this import is here
+import org.example.rideshareapp.db.DB;
 import org.example.rideshareapp.services.MapService;
 import org.example.rideshareapp.services.PaymentService;
 import org.example.rideshareapp.services.ProfileService;
@@ -27,7 +27,7 @@ public class Main extends Application {
     public void start(Stage stage) throws Exception {
         this.primaryStage = stage;
 
-        // ✅ Initialize database (creates data/app.db if missing)
+        // Initialize database (creates data/app.db if missing)
         try (var conn = DB.get()) {
             System.out.println("✅ Database ready at: " +
                     new java.io.File("data/app.db").getAbsolutePath());
@@ -35,7 +35,7 @@ public class Main extends Application {
             e.printStackTrace();
         }
 
-        // ✅ Load login screen (no test user)
+        // Load login screen (no test user)
         showLogin();
     }
 
