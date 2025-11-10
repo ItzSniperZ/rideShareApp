@@ -42,7 +42,7 @@ rideShareApp/
 │   │       ├── MapPage.fxml
 │   │       └── SignupPage.fxml
 │   └── module-info.java
-└── pom.xml  (or Maven config)
+└── pom.xml
 ```
 
 ---
