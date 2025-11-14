@@ -1,7 +1,6 @@
 package org.example.rideshareapp.auth;
 
 import org.example.rideshareapp.db.DB;
-import org.mindrot.jbcrypt.BCrypt;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -10,32 +9,34 @@ import java.sql.SQLException;
 
 public class UserDao {
 
-    // Register a new user
+    // Register a new user (plain-text password for this project)
     public boolean createUser(String username, String plainPassword) throws SQLException {
-        String hash = BCrypt.hashpw(plainPassword, BCrypt.gensalt(12));
         String sql = "INSERT INTO users (username, password_hash) VALUES (?, ?)";
         try (Connection c = DB.get(); PreparedStatement ps = c.prepareStatement(sql)) {
             ps.setString(1, username.trim().toLowerCase());
-            ps.setString(2, hash);
+            ps.setString(2, plainPassword);  // store plain text now
             ps.executeUpdate();
             return true;
         } catch (SQLException e) {
+            // If username is already taken (UNIQUE constraint), return false instead of crashing
             if (e.getMessage() != null && e.getMessage().contains("UNIQUE")) {
-                return false; // username already exists
+                return false;
             }
             throw e;
         }
     }
 
-    // Login check
+    // Check credentials by comparing plain-text password
     public boolean checkCredentials(String username, String plainPassword) throws SQLException {
         String sql = "SELECT password_hash FROM users WHERE username = ?";
         try (Connection c = DB.get(); PreparedStatement ps = c.prepareStatement(sql)) {
             ps.setString(1, username.trim().toLowerCase());
             try (ResultSet rs = ps.executeQuery()) {
-                if (!rs.next()) return false;
-                String storedHash = rs.getString("password_hash");
-                return BCrypt.checkpw(plainPassword, storedHash);
+                if (!rs.next()) {
+                    return false; // no such user
+                }
+                String storedPassword = rs.getString("password_hash");
+                return plainPassword.equals(storedPassword); // plain-text comparison
             }
         }
     }
@@ -47,9 +48,10 @@ public class UserDao {
             ps.setString(1, user.trim().toLowerCase());
             try (ResultSet rs = ps.executeQuery()) {
                 if (!rs.next()) {
-                    createUser(user, pass);
+                    createUser(user, pass); // will store plain-text now
                 }
             }
         }
     }
 }
+

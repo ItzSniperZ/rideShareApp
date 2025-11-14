@@ -13,7 +13,7 @@ public class DB {
         try (Connection c = DriverManager.getConnection(URL);
              Statement s = c.createStatement()) {
 
-            // Recommended SQLite settings
+            //SQLite settings
             s.execute("PRAGMA foreign_keys = ON");
             s.execute("PRAGMA journal_mode = WAL");
             s.execute("PRAGMA synchronous = NORMAL");

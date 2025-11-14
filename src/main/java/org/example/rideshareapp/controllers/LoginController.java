@@ -1,15 +1,11 @@
 package org.example.rideshareapp.controllers;
 
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
-import javafx.stage.Modality;
-import javafx.stage.Stage;
 import org.example.rideshareapp.Main;
+import org.example.rideshareapp.auth.UserDao;
 
 /**
  * Controller class for handling user login functionality in the RideShare application.
@@ -40,6 +36,9 @@ public class LoginController {
     /** Reference to the main application instance for navigation control. */
     private Main mainApp;
 
+    /** DAO used to check credentials against the database. */
+    private final UserDao userDao = new UserDao();
+
     /**
      * Sets the main application reference.
      *
@@ -52,23 +51,50 @@ public class LoginController {
     /**
      * Triggered when the user presses the Login button.
      * <p>
-     * Attempts to authenticate the user via {@link org.example.rideshareapp.services.ProfileService#login(String, String)}.
+     * Attempts to authenticate the user via {@link UserDao#checkCredentials(String, String)}.
      * If successful, loads the main application window; otherwise, displays an error message.
      * </p>
      */
     @FXML
     private void onLogin() {
-        boolean ok = Main.PROFILE_SERVICE.login(usernameField.getText(), passwordField.getText());
-        if (ok) {
-            statusLabel.setText("");
-            try {
-                mainApp.showMainApp();
-            } catch (Exception e) {
-                e.printStackTrace();
-                statusLabel.setText("Unable to load main app.");
+        statusLabel.setText(""); // clear old message
+
+        String username = usernameField.getText() == null
+                ? ""
+                : usernameField.getText().trim();
+        String password = passwordField.getText() == null
+                ? ""
+                : passwordField.getText().trim();
+
+        if (username.isEmpty() || password.isEmpty()) {
+            statusLabel.setText("Please enter both username and password.");
+            return;
+        }
+
+        try {
+            boolean ok = userDao.checkCredentials(username, password);
+            if (ok) {
+                // login OK
+                statusLabel.setText("");
+                System.out.println("[Login] User '" + username + "' logged in successfully.");
+
+                if (mainApp != null) {
+                    // Navigate to main app window
+                    mainApp.showMainApp();
+                } else {
+                    // This means setMainApp was never called
+                    System.err.println("[Login] mainApp is null. " +
+                            "Make sure Main.showLogin() calls controller.setMainApp(this).");
+                }
+
+            } else {
+                statusLabel.setText("Invalid credentials");
+                System.out.println("[Login] Invalid credentials for '" + username + "'");
             }
-        } else {
-            statusLabel.setText("Invalid credentials");
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            statusLabel.setText("Login error: " + e.getMessage());
         }
     }
 
@@ -83,10 +109,15 @@ public class LoginController {
     private void onSignup() {
         statusLabel.setText(""); // clear any message
         try {
-            mainApp.showSignup(); // navigates to sign-up window
+            if (mainApp != null) {
+                mainApp.showSignup(); // navigates to sign-up window
+            } else {
+                System.err.println("[Login] mainApp is null in onSignup().");
+            }
         } catch (Exception e) {
             e.printStackTrace();
             statusLabel.setText("Unable to open Sign Up.");
         }
     }
 }
+
