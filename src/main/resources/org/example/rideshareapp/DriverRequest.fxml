@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.shape.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.rideshareapp.controllers.DriverRequestController">
+   <children>
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#b0cceb" height="348.0" layoutX="25.0" layoutY="26.0" stroke="WHITE" strokeType="INSIDE" width="550.0" />
+      <TextArea layoutX="200.0" layoutY="121.0" prefHeight="123.0" prefWidth="200.0" />
+      <Button fx:id="rejectButton" layoutX="338.0" layoutY="272.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="96.0" text="Reject" />
+      <Button layoutX="167.0" layoutY="272.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="96.0" text="Accept" />
+      <Text layoutX="263.0" layoutY="101.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Ride Requests" />
+   </children>
+</AnchorPane>
