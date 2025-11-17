@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.shape.*?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.rideshareapp.controllers.DriverController">
+   <children>
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#c9e5ff" height="344.0" layoutX="34.0" layoutY="28.0" stroke="WHITE" strokeType="INSIDE" width="532.0" />
+      <Label layoutX="272.0" layoutY="372.0" />
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#84c2fd" height="62.0" layoutX="200.0" layoutY="260.0" stroke="BLACK" strokeType="INSIDE" width="200.0" />
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#84c2fd" height="62.0" layoutX="200.0" layoutY="165.0" stroke="BLACK" strokeType="INSIDE" width="200.0" />
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#84c2fd" height="62.0" layoutX="203.0" layoutY="70.0" stroke="BLACK" strokeType="INSIDE" width="194.0" />
+      <Button fx:id="rideRequestButton" layoutX="214.0" layoutY="178.0" mnemonicParsing="false" onAction="#onRequestButton" prefHeight="36.0" prefWidth="171.0" text="Ride Requests" />
+      <Button fx:id="logOutButton" layoutX="214.0" layoutY="273.0" mnemonicParsing="false" onAction="#onLogoutButton" prefHeight="36.0" prefWidth="171.0" text="Log Out" />
+      <Button fx:id="profileButton" layoutX="214.0" layoutY="83.0" mnemonicParsing="false" onAction="#onProfileButton" prefHeight="36.0" prefWidth="171.0" text="Profile" />
+   </children>
+</AnchorPane>

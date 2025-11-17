@@ -9,6 +9,8 @@ module org.example.rideshareapp {
     // ✅ Needed for BCrypt (org.mindrot.jbcrypt.BCrypt)
     // The jar provides an automatic module named 'jbcrypt'
     requires jbcrypt;
+    requires javafx.graphics;
+    requires java.desktop;
 
     // FXML controllers live in this package, so open it for reflection
     opens org.example.rideshareapp to javafx.fxml;

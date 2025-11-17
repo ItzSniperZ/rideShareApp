@@ -55,6 +55,7 @@ public class SignupController {
     private void onRegister() {
         String u = usernameField.getText().trim();
         String p = passwordField.getText();
+        String c = "";
 
         if (u.isEmpty() || p.isEmpty()) {
             statusLabel.setText("Enter username & password");
@@ -63,7 +64,7 @@ public class SignupController {
 
         boolean created;
         try {
-            created = new UserDao().createUser(u, p); // Writes to SQLite with BCrypt hashing
+            created = new UserDao().createUser(u, p, c); // Writes to SQLite with BCrypt hashing
         } catch (Exception e) {
             e.printStackTrace();
             statusLabel.setText("Error creating user");
