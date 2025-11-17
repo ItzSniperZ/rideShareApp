@@ -56,6 +56,17 @@ public class LoginController {
      * </p>
      */
     @FXML
+
+    public String getUsername() {
+       return usernameField.getText();
+    }
+    public String getPassword() {
+        return passwordField.getText();
+    }
+    public String getClassifcation(String username) {
+        return classifcation.getText();
+    }
+
     private void onLogin() {
         statusLabel.setText(""); // clear old message
 

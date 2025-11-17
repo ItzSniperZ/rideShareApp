@@ -1,6 +1,7 @@
 package org.example.rideshareapp.services;
 
 import org.example.rideshareapp.db.DB;
+import org.example.rideshareapp.controllers.LoginController;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -32,12 +33,12 @@ import java.sql.SQLException;
 public class ProfileService {
     private int profileId;
     private String username;
-    private String password;
+    private String password_hash;
     private String classification;
     private long phoneNumber = 0L; // not stored in database cant be used
 
     public boolean register(String username, String password, String classification) {
-        String sql = "INSERT INTO users (username, password, classification) VALUES (?, ?, ?)";
+        String sql = "INSERT INTO users (username, password_hash, classification) VALUES (?, ?, ?)";
         PreparedStatement preparedStatement = null;
         try (Connection c = DB.get(); PreparedStatement ps = c.prepareStatement(sql)) {
             // parameter index 1 tells it to fill in the first placeholder which is represented as ?
@@ -52,19 +53,25 @@ public class ProfileService {
         }
     }
 
-    public boolean login(String username, String password) {
+    public boolean login() { //needs classification
         // Select retries data from the database users  * is all columns where username and password both match the right values
-        String sql = "SELECT * FROM users WHERE username = ? AND password = ?";
+        LoginController LoginController1 = new LoginController();
+        String username = LoginController1.getUsername();
+        String password = LoginController1.getPassword();
+        String classifcation = LoginController. ;
+
+        String sql = "SELECT * FROM users WHERE username = ? AND password_hash = ? AND classification = ?";
         PreparedStatement preparedStatement = null;
         try (Connection c = DB.get(); PreparedStatement ps = c.prepareStatement(sql)) {
-            ps.setString(1, username);
-            ps.setString(2, password);
+            ps.setString(1, username.trim());
+            ps.setString(2, password.trim());
+            ps.setString(3, classification.trim());
             ResultSet rs = ps.executeQuery(); //A mini table in Java that holds the rows your query returned
             if (rs.next()) {
                 // loads these fields into the object once logged in
                 this.profileId = rs.getInt("id"); // I think the column labels need to match what's in the database
                 this.username = rs.getString("username");
-                this.password = rs.getString("password_hash");
+                this.password_hash = rs.getString("password_hash");
                 this.classification = rs.getString("classification");
                 //this.phoneNumber = rs.getLong("phone_number");
                 return true;
@@ -76,7 +83,7 @@ public class ProfileService {
         return false;
     }
     public void updateProfile(String username, String password, String classification) {
-        String sql = "UPDATE users SET classification = ? WHERE username = ? WHERE password = ?";
+        String sql = "UPDATE users SET classification = ? WHERE username = ? AND  password_hash = ?";
         PreparedStatement preparedStatement = null;
         try(Connection c = DB.get(); PreparedStatement ps = c.prepareStatement(sql)){
             ps.setString(1, classification);
@@ -88,7 +95,7 @@ public class ProfileService {
             throw new RuntimeException(e);
         }
     }
-    public void viewProfile() {
+    public void viewProfile(int profileId) {
         String sql = "SELECT * FROM users WHERE id = ?";
         PreparedStatement preparedStatement = null;
         try(Connection c = DB.get(); PreparedStatement ps = c.prepareStatement(sql)) {
