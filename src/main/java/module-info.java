@@ -11,6 +11,7 @@ module org.example.rideshareapp {
     requires jbcrypt;
     requires javafx.graphics;
     requires java.desktop;
+    requires org.example.rideshareapp;
 
     // FXML controllers live in this package, so open it for reflection
     opens org.example.rideshareapp to javafx.fxml;

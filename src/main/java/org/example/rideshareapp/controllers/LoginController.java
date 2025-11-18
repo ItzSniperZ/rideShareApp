@@ -6,6 +6,7 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import org.example.rideshareapp.Main;
 import org.example.rideshareapp.auth.UserDao;
+import org.example.rideshareapp.services.ProfileService;
 
 /**
  * Controller class for handling user login functionality in the RideShare application.
@@ -63,8 +64,8 @@ public class LoginController {
     public String getPassword() {
         return passwordField.getText();
     }
-    public String getClassifcation(String username) {
-        return classifcation.getText();
+    public String getClassification(String username) {
+        return classification.getText();
     }
 
     private void onLogin() {
@@ -81,14 +82,13 @@ public class LoginController {
             statusLabel.setText("Please enter both username and password.");
             return;
         }
-
         try {
-            boolean ok = userDao.checkCredentials(username, password);
+            ProfileService profileService = new ProfileService();
+            boolean ok = profileService.login();
             if (ok) {
                 // login OK
                 statusLabel.setText("");
                 System.out.println("[Login] User '" + username + "' logged in successfully.");
-
                 if (mainApp != null) {
                     // Navigate to main app window
                     mainApp.showMainApp();
@@ -97,12 +97,10 @@ public class LoginController {
                     System.err.println("[Login] mainApp is null. " +
                             "Make sure Main.showLogin() calls controller.setMainApp(this).");
                 }
-
             } else {
                 statusLabel.setText("Invalid credentials");
                 System.out.println("[Login] Invalid credentials for '" + username + "'");
             }
-
         } catch (Exception e) {
             e.printStackTrace();
             statusLabel.setText("Login error: " + e.getMessage());

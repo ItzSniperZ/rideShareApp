@@ -28,6 +28,15 @@ public class DB {
                   created_at TEXT NOT NULL DEFAULT (strftime('%Y-%m-%dT%H:%M:%fZ','now'))
                 )
             """);
+            s.execute("""
+                CREATE TABLE IF NOT EXISTS drivers (
+                  driverId INTEGER PRIMARY KEY,
+                  plateNumber TEXT NOT NULL,
+                  availabilityStatus INTEGER NOT NULL DEFAULT 0,
+                  FOREIGN KEY (driverId) REFERENCES users(id),
+                  created_at TEXT NOT NULL DEFAULT (strftime('%Y-%m-%dT%H:%M:%fZ','now'))
+                )
+            """);
         } catch (SQLException e) {
             throw new RuntimeException("Failed to initialize database!", e);
         }
