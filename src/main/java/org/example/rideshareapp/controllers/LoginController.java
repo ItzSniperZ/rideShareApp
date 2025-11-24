@@ -8,6 +8,7 @@ import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import org.example.rideshareapp.Main;
 import org.example.rideshareapp.auth.UserDao;
+import org.example.rideshareapp.services.ProfileService;
 
 import java.io.IOException;
 
@@ -112,12 +113,12 @@ public class LoginController {
         }
 
         try {
-            boolean ok = userDao.checkCredentials(username, password);
+            ProfileService profileService = new ProfileService();
+            boolean ok = profileService.login();
             if (ok) {
                 // login OK
                 statusLabel.setText("");
                 System.out.println("[Login] User '" + username + "' logged in successfully.");
-
                 if (mainApp != null) {
                     // Navigate to main app window
                     mainApp.showMainApp();
@@ -126,12 +127,10 @@ public class LoginController {
                     System.err.println("[Login] mainApp is null. " +
                             "Make sure Main.showLogin() calls controller.setMainApp(this).");
                 }
-
             } else {
                 statusLabel.setText("Invalid credentials");
                 System.out.println("[Login] Invalid credentials for '" + username + "'");
             }
-
         } catch (Exception e) {
             e.printStackTrace();
             statusLabel.setText("Login error: " + e.getMessage());
