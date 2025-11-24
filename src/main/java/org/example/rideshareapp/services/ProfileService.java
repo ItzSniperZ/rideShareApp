@@ -1,5 +1,13 @@
 package org.example.rideshareapp.services;
 
+import org.example.rideshareapp.db.DB;
+import org.example.rideshareapp.controllers.LoginController;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
 /**
  * Service class responsible for managing user profile data and
  * authentication within the RideShare application.
@@ -23,96 +31,86 @@ package org.example.rideshareapp.services;
  * </p>
  */
 public class ProfileService {
+    private int profileId;
+    private String username;
+    private String password_hash;
+    private String classification;
+    private long phoneNumber = 0L; // not stored in database cant be used
 
-    /** Tracks whether the user is currently logged in. */
-    private boolean loggedIn = false;
-
-    /** The currently logged-in user's username (temporary placeholder). */
-    private String username = "test";
-
-    /** The user's password. */
-    private String password = "test";
-
-    /** The user's registered phone number. */
-    private long phoneNumber = 0L;
-
-    /**
-     * Attempts to log the user in with the provided credentials.
-     * <p>
-     * In this simplified version, any non-empty username and password
-     * combination is considered valid.
-     * </p>
-     *
-     * @param username the username to authenticate
-     * @param password the password for the user
-     * @return {@code true} if credentials are non-empty and login succeeds;
-     *         {@code false} otherwise
-     */
-    public boolean login(String username, String password) {
-        if (username != null && password != null && !username.isEmpty() && !password.isEmpty()) {
-            this.loggedIn = true;
+    public boolean register(String username, String password, String classification) {
+        String sql = "INSERT INTO users (username, password_hash, classification) VALUES (?, ?, ?)";
+        PreparedStatement preparedStatement = null;
+        try (Connection c = DB.get(); PreparedStatement ps = c.prepareStatement(sql)) {
+            // parameter index 1 tells it to fill in the first placeholder which is represented as ?
+            ps.setString(1, username);
+            ps.setString(2, password);
+            ps.setString(3, classification);
+            ps.executeUpdate();
             return true;
+        } catch (SQLException e) {
+            e.printStackTrace(); //error logging
+            return false;
+        }
+    }
+
+    public boolean login() { //needs classification
+        // Select retries data from the database users  * is all columns where username and password both match the right values
+        LoginController LoginController1 = new LoginController();
+        String username = LoginController1.getUsername();
+        String password = LoginController1.getPassword();
+        String classification = LoginController.getClassification();
+
+        String sql = "SELECT * FROM users WHERE username = ? AND password_hash = ? AND classification = ?";
+        PreparedStatement preparedStatement = null;
+        try (Connection c = DB.get(); PreparedStatement ps = c.prepareStatement(sql)) {
+            ps.setString(1, username.trim());
+            ps.setString(2, password.trim());
+            ps.setString(3, classification.trim());
+            ResultSet rs = ps.executeQuery(); //A mini table in Java that holds the rows your query returned
+            if (rs.next()) {
+                // loads these fields into the object once logged in
+                this.profileId = rs.getInt("id"); // I think the column labels need to match what's in the database
+                this.username = rs.getString("username");
+                this.password_hash = rs.getString("password_hash");
+                this.classification = rs.getString("classification");
+                //this.phoneNumber = rs.getLong("phone_number");
+                return true;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
         }
         return false;
     }
-
-    /**
-     * Logs the user out and resets the authentication state.
-     *
-     * @return {@code true} once the logout operation completes
-     */
-    public boolean logout() {
-        this.loggedIn = false;
-        return true;
+    public void updateProfile(String username, String password, String classification) {
+        String sql = "UPDATE users SET classification = ? WHERE username = ? AND  password_hash = ?";
+        PreparedStatement preparedStatement = null;
+        try(Connection c = DB.get(); PreparedStatement ps = c.prepareStatement(sql)){
+            ps.setString(1, classification);
+            ps.setString(2, username);
+            ps.setString(3, password);
+            ps.executeUpdate();
+        }
+        catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
-
-    /**
-     * Updates the stored username if the provided value is valid.
-     *
-     * @param newUsername the new username to set
-     */
-    public void updateUsername(String newUsername) {
-        if (newUsername != null && !newUsername.isEmpty()) {
-            this.username = newUsername;
+    public void viewProfile(int profileId) {
+        String sql = "SELECT * FROM users WHERE id = ?";
+        PreparedStatement preparedStatement = null;
+        try(Connection c = DB.get(); PreparedStatement ps = c.prepareStatement(sql)) {
+            ps.setInt(1, profileId);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                System.out.println("Username: " + rs.getString("username"));
+                System.out.println("Classification: " + rs.getString("classification"));
+                System.out.println("Password: " + rs.getString("password_hash"));
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
         }
     }
 
-    /**
-     * Updates the stored password if the provided value is valid.
-     *
-     * @param newPassword the new password to set
-     */
-    public void updatePassword(String newPassword) {
-        if (newPassword != null && !newPassword.isEmpty()) {
-            this.password = newPassword;
-        }
-    }
-
-    /**
-     * Updates the stored phone number.
-     *
-     * @param newPhoneNumber the new phone number to associate with the user
-     */
-    public void updatePhoneNumber(long newPhoneNumber) {
-        this.phoneNumber = newPhoneNumber;
-    }
-
-    /**
-     * Updates multiple fields in the user profile at once.
-     * <p>
-     * Only non-null, non-empty values (and non-zero phone numbers)
-     * will be applied to the stored user record.
-     * </p>
-     *
-     * @param username the new username, or {@code null} to leave unchanged
-     * @param password the new password, or {@code null} to leave unchanged
-     * @param phoneNumber the new phone number, or {@code 0L} to leave unchanged
-     */
-    public void updateProfile(String username, String password, long phoneNumber) {
-        if (username != null && !username.isEmpty()) updateUsername(username);
-        if (password != null && !password.isEmpty()) updatePassword(password);
-        if (phoneNumber != 0L) updatePhoneNumber(phoneNumber);
-    }
 
     /**
      * Simulates submitting a support ticket to customer service.
