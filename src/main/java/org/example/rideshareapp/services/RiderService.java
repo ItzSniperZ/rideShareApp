@@ -1,5 +1,13 @@
-package org.example.rideshareapp.services;
+//package org.example.rideshareapp.services;
 
+//public class RiderService extends ProfileService {
+
+
+
+    //public boolean rideStatus(){
+
+    //}
+//}
 public class RiderService extends ProfileService {
     private boolean rideStatus;
     private boolean paymentStatus;

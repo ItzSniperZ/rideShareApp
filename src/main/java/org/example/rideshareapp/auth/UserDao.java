@@ -14,7 +14,8 @@ public class UserDao {
         String sql = "INSERT INTO users (username, password_hash, classification) VALUES (?, ?, ?)";
         try (Connection c = DB.get(); PreparedStatement ps = c.prepareStatement(sql)) {
             ps.setString(1, username.trim().toLowerCase());
-            ps.setString(2, plainPassword);  // store plain text now
+            ps.setString(2, plainPassword);
+            ps.setString(3, classification);// store plain text now
             ps.executeUpdate();
             return true;
         } catch (SQLException e) {

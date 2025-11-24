@@ -1,31 +1,26 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
-<?import javafx.geometry.Insets?>
 
-<VBox xmlns="http://javafx.com/javafx/8.0.171"
-      xmlns:fx="http://javafx.com/fxml/1"
-      fx:controller="org.example.rideshareapp.controllers.SignupController"
-      alignment="CENTER"
-      spacing="14">
+<VBox alignment="CENTER" spacing="14" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.rideshareapp.controllers.SignupController">
 
     <padding>
-        <Insets top="40" right="40" bottom="40" left="40"/>
+        <Insets bottom="40" left="40" right="40" top="40" />
     </padding>
 
-    <Label text="Create an Account" style="-fx-font-size: 26;" />
+    <Label style="-fx-font-size: 26;" text="Create an Account" />
 
-    <TextField fx:id="usernameField" promptText="Choose Username" maxWidth="220"/>
-    <PasswordField fx:id="passwordField" promptText="Choose Password" maxWidth="220"/>
+    <TextField fx:id="usernameField" maxWidth="220" promptText="Choose Username" />
+    <PasswordField fx:id="passwordField" maxWidth="220" promptText="Choose Password" />
+   <TextField fx:id="classField" promptText="&quot;Rider&quot; or &quot;Driver&quot;" />
 
-    <HBox spacing="10">
-        <Button text="Register" onAction="#onRegister" maxWidth="105"/>
-        <Button text="Back to Login" onAction="#onBackToLogin" maxWidth="105"/>
-    </HBox>
+    <HBox spacing="10" />
+     <Button maxWidth="105" onAction="#onBackToLogin" text="Back to Login" />
+     <Button maxWidth="105" onAction="#onRegister" text="Register" />
 
 
-    <Label fx:id="statusLabel" textFill="red"/>
+    <Label fx:id="statusLabel" textFill="red" />
 
 </VBox>
-

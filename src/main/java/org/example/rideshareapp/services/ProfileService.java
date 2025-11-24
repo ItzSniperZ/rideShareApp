@@ -58,7 +58,7 @@ public class ProfileService {
         LoginController LoginController1 = new LoginController();
         String username = LoginController1.getUsername();
         String password = LoginController1.getPassword();
-        String classification = LoginController.getClassification();
+        String classification = LoginController1.getClassification() ;
 
         String sql = "SELECT * FROM users WHERE username = ? AND password_hash = ? AND classification = ?";
         PreparedStatement preparedStatement = null;

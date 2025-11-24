@@ -42,8 +42,7 @@ public class ProfileController {
     /** Password field for entering the account password. */
     @FXML private PasswordField passwordField;
 
-    /** Text field for entering the user’s phone number. */
-    @FXML private TextField phoneField;
+    @FXML private TextField classificationField;
 
     /** Text field for entering the card number. */
     @FXML private TextField cardField;
@@ -64,7 +63,7 @@ public class ProfileController {
      * Triggered when the user clicks the “Update Profile” button.
      * <p>
      * Attempts to update the user's profile using
-     * {@link org.example.rideshareapp.services.ProfileService#updateProfile(String, String, long)}.
+     * {@link org.example.rideshareapp.services.ProfileService#updateProfile(String, String, String)}.
      * If the phone number field is not numeric, an error message is displayed.
      * </p>
      */
@@ -72,13 +71,12 @@ public class ProfileController {
     private void onUpdateProfile() {
         String user = usernameField.getText();
         String pass = passwordField.getText();
-        long phone = 0L;
+        String classification = classificationField.getText();
+
 
         try {
-            if (!phoneField.getText().isEmpty()) {
-                phone = Long.parseLong(phoneField.getText());
-            }
-            Main.PROFILE_SERVICE.updateProfile(user, pass, phone);
+
+            Main.PROFILE_SERVICE.updateProfile(user, pass, classification);
             statusLabel.setText("Profile updated (stub).");
         } catch (NumberFormatException e) {
             statusLabel.setText("Phone must be numeric.");
