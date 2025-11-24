@@ -35,7 +35,6 @@ public class ProfileService {
     private String username;
     private String password_hash;
     private String classification;
-    private long phoneNumber = 0L; // not stored in database cant be used
 
     public boolean register(String username, String password, String classification) {
         String sql = "INSERT INTO users (username, password_hash, classification) VALUES (?, ?, ?)";
@@ -109,20 +108,5 @@ public class ProfileService {
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
-    }
-
-
-    /**
-     * Simulates submitting a support ticket to customer service.
-     * <p>
-     * This method prints a ticket message to the console for testing.
-     * In a real deployment, it could send the data to a remote support API.
-     * </p>
-     *
-     * @param reason a short description of the issue type
-     * @param description a detailed explanation of the problem
-     */
-    public void contactSupport(String reason, String description) {
-        System.out.println("Support ticket -> " + reason + ": " + description);
     }
 }
