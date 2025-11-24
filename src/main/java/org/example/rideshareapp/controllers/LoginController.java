@@ -69,7 +69,7 @@ public class LoginController {
     public String getPassword() {
         return passwordField.getText();
     }
-    public String getClassification(String username) {
+    public String getClassification() {
         return classField.getText();
     }
 
@@ -91,7 +91,7 @@ public class LoginController {
             return;
         }
 
-        if (getClassification(username).equals("Driver")) {
+        if (getClassification().equals("Driver")) {
             // Get new scene
             FXMLLoader loader = new FXMLLoader(getClass().getResource("DriverPage.fxml"));
             // Get current scene
@@ -99,7 +99,7 @@ public class LoginController {
             // Load new scene
             logInScene.setScene(loader.load());
         }
-        else if (getClassification(username).equals("Rider")) {
+        else if (getClassification().equals("Rider")) {
             // Get new scene
             FXMLLoader loader = new FXMLLoader(getClass().getResource("main.fxml"));
             // Get current scene
