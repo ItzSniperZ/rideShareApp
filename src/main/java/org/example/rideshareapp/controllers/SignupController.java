@@ -43,6 +43,8 @@ public class SignupController {
     /** Label displaying registration or validation status messages. */
     @FXML private Label statusLabel;
 
+    @FXML private TextField classField;
+
     /**
      * Triggered when the user clicks the “Register” button.
      * <p>
@@ -55,7 +57,7 @@ public class SignupController {
     private void onRegister() {
         String u = usernameField.getText().trim();
         String p = passwordField.getText();
-        String c = "";
+        String c = classField.getText();
 
         if (u.isEmpty() || p.isEmpty()) {
             statusLabel.setText("Enter username & password");

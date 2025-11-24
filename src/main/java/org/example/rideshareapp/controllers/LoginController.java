@@ -1,11 +1,15 @@
 package org.example.rideshareapp.controllers;
 
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.stage.Stage;
 import org.example.rideshareapp.Main;
 import org.example.rideshareapp.auth.UserDao;
+
+import java.io.IOException;
 
 /**
  * Controller class for handling user login functionality in the RideShare application.
@@ -32,6 +36,8 @@ public class LoginController {
 
     /** Label for showing login or error messages. */
     @FXML private Label statusLabel;
+
+    @FXML private TextField classField;
 
     /** Reference to the main application instance for navigation control. */
     private Main mainApp;
@@ -63,11 +69,11 @@ public class LoginController {
     public String getPassword() {
         return passwordField.getText();
     }
-    public String getClassifcation(String username) {
-        return classifcation.getText();
+    public String getClassification(String username) {
+        return classField.getText();
     }
 
-    private void onLogin() {
+    private void onLogin() throws IOException {
         statusLabel.setText(""); // clear old message
 
         String username = usernameField.getText() == null
@@ -76,10 +82,33 @@ public class LoginController {
         String password = passwordField.getText() == null
                 ? ""
                 : passwordField.getText().trim();
+        String classification = classField.getText() == null
+                ? ""
+                : classField.getText().trim();
 
-        if (username.isEmpty() || password.isEmpty()) {
-            statusLabel.setText("Please enter both username and password.");
+        if (username.isEmpty() || password.isEmpty() || classification.isEmpty()) {
+            statusLabel.setText("Please enter username, password, and classification.");
             return;
+        }
+
+        if (getClassification(username).equals("Driver")) {
+            // Get new scene
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("DriverPage.fxml"));
+            // Get current scene
+            Stage logInScene = (Stage) statusLabel.getScene().getWindow();
+            // Load new scene
+            logInScene.setScene(loader.load());
+        }
+        else if (getClassification(username).equals("Rider")) {
+            // Get new scene
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("main.fxml"));
+            // Get current scene
+            Stage logInScene = (Stage) statusLabel.getScene().getWindow();
+            // Load new scene
+            logInScene.setScene(loader.load());
+        }
+        else {
+            statusLabel.setText("Invalid classification input.");
         }
 
         try {

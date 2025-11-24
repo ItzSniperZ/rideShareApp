@@ -1,10 +1,10 @@
-package org.example.rideshareapp.services;
+//package org.example.rideshareapp.services;
 
-public class RiderService extends ProfileService {
+//public class RiderService extends ProfileService {
 
 
 
-    public boolean rideStatus(){
+    //public boolean rideStatus(){
 
-    }
-}
+    //}
+//}

@@ -1,32 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
-<?import javafx.geometry.Insets?>
 
-<VBox xmlns="http://javafx.com/javafx/8.0.171"
-      xmlns:fx="http://javafx.com/fxml/1"
-      fx:controller="org.example.rideshareapp.controllers.LoginController"
-      alignment="CENTER"
-      spacing="14">
+<VBox alignment="CENTER" spacing="14" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.rideshareapp.controllers.LoginController">
 
     <!-- proper padding -->
     <padding>
-        <Insets top="40" right="40" bottom="40" left="40"/>
+        <Insets bottom="40" left="40" right="40" top="40" />
     </padding>
 
-    <Label text="Welcome to RideNow" style="-fx-font-size: 26;" />
+    <Label style="-fx-font-size: 26;" text="Welcome to RideNow" />
 
-    <TextField fx:id="usernameField" promptText="Username" maxWidth="220"/>
-    <PasswordField fx:id="passwordField" promptText="Password" maxWidth="220"/>
+    <TextField fx:id="usernameField" maxWidth="220" promptText="Username" />
+    <PasswordField fx:id="passwordField" maxWidth="220" promptText="Password" />
+   <TextField fx:id="classField" maxWidth="220.0" promptText="&quot;Driver&quot; or &quot;Rider&quot;" />
 
     <!-- ✅ Put Login and Sign Up next to each other -->
-    <HBox spacing="10">
-        <Button text="Login" onAction="#onLogin" maxWidth="105"/>
-        <Button text="Sign Up" onAction="#onSignup" maxWidth="105"/>
-    </HBox>
+    <HBox spacing="10" />
+     <Button maxWidth="105" onAction="#onLogin" text="Login" />
 
-    <Label fx:id="statusLabel" textFill="red"/>
+    <Label fx:id="statusLabel" textFill="red" />
+     <Button maxWidth="105" onAction="#onSignup" text="Sign Up" />
 
 </VBox>
-
