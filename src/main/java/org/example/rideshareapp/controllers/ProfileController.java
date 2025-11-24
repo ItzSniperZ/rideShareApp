@@ -68,7 +68,7 @@ public class ProfileController {
      * </p>
      */
     @FXML
-    private void onUpdateProfile() {
+    private void onUpdateProfile() { //may need work
         String user = usernameField.getText();
         String pass = passwordField.getText();
         String classification = classificationField.getText();

@@ -74,7 +74,7 @@ public class LoginController {
         return classField.getText();
     }
 
-    private void onLogin() throws IOException {
+    private void onLogin() throws IOException { //should work with profile service
         statusLabel.setText(""); // clear old message
 
         String username = usernameField.getText() == null

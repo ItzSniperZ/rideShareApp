@@ -52,7 +52,7 @@ public class ProfileService {
         }
     }
 
-    public boolean login() { //needs classification
+    public boolean login() { //bugs with login needed classification also needed to work with login controller now works by adding getters and setter and making logincontroller1
         // Select retries data from the database users  * is all columns where username and password both match the right values
         LoginController LoginController1 = new LoginController();
         String username = LoginController1.getUsername();

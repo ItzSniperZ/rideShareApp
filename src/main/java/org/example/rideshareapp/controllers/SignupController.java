@@ -54,7 +54,7 @@ public class SignupController {
      * </p>
      */
     @FXML
-    private void onRegister() {
+    private void onRegister() { //change to work with profile service should be a select query
         String u = usernameField.getText().trim();
         String p = passwordField.getText();
         String c = classField.getText();
