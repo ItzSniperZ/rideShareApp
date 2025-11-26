@@ -52,12 +52,12 @@ public class ProfileService {
         }
     }
 
-    public boolean login() { //bugs with login needed classification also needed to work with login controller now works by adding getters and setter and making logincontroller1
+    public boolean login(String username, String password, String classification) { //bugs with login needed classification also needed to work with login controller now works by adding getters and setter and making logincontroller1
         // Select retries data from the database users  * is all columns where username and password both match the right values
-        LoginController LoginController1 = new LoginController();
-        String username = LoginController1.getUsername();
-        String password = LoginController1.getPassword();
-        String classification = LoginController1.getClassification() ;
+//        LoginController LoginController1 = new LoginController();
+//        String username = LoginController1.getUsername();
+//        String password = LoginController1.getPassword();
+//        String classification = LoginController1.getClassification();
 
         String sql = "SELECT * FROM users WHERE username = ? AND password_hash = ? AND classification = ?";
         PreparedStatement preparedStatement = null;
@@ -108,5 +108,8 @@ public class ProfileService {
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
+    }
+    public void contactSupport(String type, String message) {
+        System.out.println("[Support] (" + type + "): " + message);
     }
 }

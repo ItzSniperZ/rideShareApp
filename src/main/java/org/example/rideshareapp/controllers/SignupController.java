@@ -7,7 +7,8 @@ import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
-import org.example.rideshareapp.auth.UserDao;
+//import org.example.rideshareapp.auth.UserDao;
+import  org.example.rideshareapp.services.ProfileService;
 
 /**
  * Controller class for handling user registration in the RideShare application.
@@ -54,19 +55,21 @@ public class SignupController {
      * </p>
      */
     @FXML
-    private void onRegister() { //change to work with profile service should be a select query
+    private void onRegister() {
         String u = usernameField.getText().trim();
         String p = passwordField.getText();
-        String c = classField.getText();
+        String c = classField.getText().trim();
 
-        if (u.isEmpty() || p.isEmpty()) {
-            statusLabel.setText("Enter username & password");
+        if (u.isEmpty() || p.isEmpty() || c.isEmpty()) {
+            statusLabel.setText("Enter username, password, and classification");
             return;
         }
 
+        ProfileService profileService = new ProfileService();
         boolean created;
+
         try {
-            created = new UserDao().createUser(u, p, c); // Writes to SQLite with BCrypt hashing
+            created = profileService.register(u, p, c);
         } catch (Exception e) {
             e.printStackTrace();
             statusLabel.setText("Error creating user");
@@ -74,15 +77,17 @@ public class SignupController {
         }
 
         if (created) {
+            // Return user to login screen
             try {
-                FXMLLoader fx = new FXMLLoader(getClass().getResource("/org/example/rideshareapp/login.fxml"));
+                FXMLLoader fx = new FXMLLoader(getClass().getResource(
+                        "/org/example/rideshareapp/login.fxml"));
                 Stage st = (Stage) statusLabel.getScene().getWindow();
                 st.setScene(new Scene(fx.load()));
             } catch (Exception e) {
                 e.printStackTrace();
             }
         } else {
-            statusLabel.setText("Username already taken");
+            statusLabel.setText("Username already taken or error occurred");
         }
     }
 

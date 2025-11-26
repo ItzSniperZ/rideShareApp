@@ -7,7 +7,7 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import org.example.rideshareapp.Main;
-import org.example.rideshareapp.auth.UserDao;
+//import org.example.rideshareapp.auth.UserDao;
 import org.example.rideshareapp.services.ProfileService;
 
 import java.io.IOException;
@@ -44,7 +44,7 @@ public class LoginController {
     private Main mainApp;
 
     /** DAO used to check credentials against the database. */
-    private final UserDao userDao = new UserDao();
+    //private final UserDao userDao = new UserDao();
 
     /**
      * Sets the main application reference.
@@ -113,8 +113,8 @@ public class LoginController {
         }
 
         try {
-            ProfileService profileService = new ProfileService();
-            boolean ok = profileService.login();
+            ProfileService service = new ProfileService();
+            boolean ok = service.login(username, password, classification);
             if (ok) {
                 // login OK
                 statusLabel.setText("");
