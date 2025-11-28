@@ -1,53 +1,68 @@
 package org.example.rideshareapp.controllers;
 
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.PasswordField;
-import javafx.scene.control.TextField;
 import javafx.stage.Stage;
-//import org.example.rideshareapp.auth.UserDao;
 
-import java.io.IOException;
-
+/**
+ * Controller class for handling navigation actions within the driver interface.
+ * <p>
+ * This controller manages transitions from the driver dashboard to the
+ * profile page, ride request page, and login screen.
+ * </p>
+ */
 public class DriverController {
-    @FXML private Label label1;
 
-    @FXML private Button profileButton;
-
-    @FXML private Button rideRequestButton;
-
-    @FXML private Button logOutButton;
-
-    @FXML // Method runs when profile button is clicked
-    private void onProfileButton() throws IOException {
-        // Get new scene
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("ProfilePage.fxml"));
-        // Get current scene
-        Stage driverScene = (Stage) label1.getScene().getWindow();
-        // Load new scene
-        driverScene.setScene(loader.load());
+    /**
+     * Opens the profile page when the profile button is clicked.
+     *
+     * @param event the originating action event
+     */
+    @FXML
+    private void onProfileButton(ActionEvent event) {
+        switchScene(event, "/org/example/rideshareapp/ProfilePage.fxml");
     }
 
-    @FXML // Method runs when ride requests button is clicked
-    private void onRequestButton() throws IOException {
-        // Get new scene
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("DriverRequest.fxml"));
-        // Get current scene
-        Stage driverScene = (Stage) label1.getScene().getWindow();
-        // Load new scene
-        driverScene.setScene(loader.load());
+    /**
+     * Opens the driver ride request page when the request button is clicked.
+     *
+     * @param event the originating action event
+     */
+    @FXML
+    private void onRequestButton(ActionEvent event) {
+        switchScene(event, "/org/example/rideshareapp/DriverRequest.fxml");
     }
 
-    @FXML // Method runs when logout button is clicked
-    private void onLogoutButton() throws IOException {
-        // Get new scene
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("login.fxml"));
-        // Get current scene
-        Stage driverScene = (Stage) label1.getScene().getWindow();
-        // Load new scene
-        driverScene.setScene(loader.load());
+    /**
+     * Returns the user to the login screen when the logout button is clicked.
+     *
+     * @param event the originating action event
+     */
+    @FXML
+    private void onLogoutButton(ActionEvent event) {
+        switchScene(event, "/org/example/rideshareapp/login.fxml");
+    }
+
+    /**
+     * Loads and displays a new scene based on the provided FXML path.
+     *
+     * @param event    the event that triggered the scene change
+     * @param fxmlPath the path to the FXML file to load
+     */
+    private void switchScene(ActionEvent event, String fxmlPath) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlPath));
+            Parent root = loader.load();
+
+            Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            window.setScene(new Scene(root));
+            window.show();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }
