@@ -68,20 +68,25 @@ public class ProfileController {
      * </p>
      */
     @FXML
-    private void onUpdateProfile() { //may need work
-        String user = usernameField.getText();
-        String pass = passwordField.getText();
-        String classification = classificationField.getText();
+    private void onUpdateProfile() {
+        String user = usernameField.getText().trim();
+        String pass = passwordField.getText().trim();
+        String classification = classificationField.getText().trim();
 
+        if (user.isEmpty() || pass.isEmpty() || classification.isEmpty()) {
+            statusLabel.setText("All fields are required.");
+            return;
+        }
 
-        try {
+        boolean ok = Main.PROFILE_SERVICE.updateProfile(user, pass, classification);
 
-            Main.PROFILE_SERVICE.updateProfile(user, pass, classification);
-            statusLabel.setText("Profile updated (stub).");
-        } catch (NumberFormatException e) {
-            statusLabel.setText("Phone must be numeric.");
+        if (ok) {
+            statusLabel.setText("Profile updated successfully.");
+        } else {
+            statusLabel.setText("Update failed. No matching user ID.");
         }
     }
+
 
     /**
      * Triggered when the user clicks the “Contact Support” button.
