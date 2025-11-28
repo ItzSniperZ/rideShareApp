@@ -2,28 +2,24 @@ module org.example.rideshareapp {
     // JavaFX
     requires javafx.controls;
     requires javafx.fxml;
+    requires javafx.graphics;
 
-    // ✅ Needed for JDBC classes used in DB.java & UserDao.java
+    // JDBC (for DB access)
     requires java.sql;
 
-    // ✅ Needed for BCrypt (org.mindrot.jbcrypt.BCrypt)
-    // The jar provides an automatic module named 'jbcrypt'
+    // BCrypt library
     requires jbcrypt;
-    requires javafx.graphics;
+
+    // For any AWT/Swing or desktop utilities you might use
     requires java.desktop;
-    //requires org.example.rideshareapp;
 
-    // FXML controllers live in this package, so open it for reflection
+    // Open packages that contain FXML controllers to JavaFX
     opens org.example.rideshareapp to javafx.fxml;
-    // If you load any controllers from subpackages via FXML, open them too:
-    opens org.example.rideshareapp.auth to javafx.fxml;
-    // (DB isn’t an FXML controller, opening db is optional, but harmless)
-    opens org.example.rideshareapp.db to javafx.fxml;
+    opens org.example.rideshareapp.controllers to javafx.fxml;
+    opens org.example.rideshareapp.services to javafx.fxml;
 
-    // Export your base package if other modules need to compile against it
+    // Export packages so other modules (or the launcher) can see them
     exports org.example.rideshareapp;
     exports org.example.rideshareapp.controllers;
-    opens org.example.rideshareapp.controllers to javafx.fxml;
     exports org.example.rideshareapp.services;
-    opens org.example.rideshareapp.services to javafx.fxml;
 }
