@@ -46,7 +46,7 @@ public class DriverController {
     @FXML
     private void onLogoutButton(ActionEvent event) {
         Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        Main.getInstance().logoutToLogin(window);
+        Main.getInstance().logout(window);
     }
 
     /**

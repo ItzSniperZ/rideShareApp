@@ -95,7 +95,7 @@ public class MainController {
     public void logout() {
         try {
             Stage window = (Stage) contentPane.getScene().getWindow();
-            Main.getInstance().logoutToLogin(window);
+            Main.getInstance().logout(window);
         } catch (Exception e) {
             e.printStackTrace();
         }
