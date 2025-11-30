@@ -4,6 +4,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.layout.StackPane;
+import javafx.stage.Stage;
 import org.example.rideshareapp.Main;
 
 /**
@@ -93,7 +94,8 @@ public class MainController {
     @FXML
     public void logout() {
         try {
-            mainApp.showLogin();
+            Stage window = (Stage) contentPane.getScene().getWindow();
+            Main.getInstance().logoutToLogin(window);
         } catch (Exception e) {
             e.printStackTrace();
         }
