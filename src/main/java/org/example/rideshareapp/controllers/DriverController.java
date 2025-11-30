@@ -7,6 +7,7 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import org.example.rideshareapp.Main;
 
 /**
  * Controller class for handling navigation actions within the driver interface.
@@ -44,7 +45,8 @@ public class DriverController {
      */
     @FXML
     private void onLogoutButton(ActionEvent event) {
-        switchScene(event, "/org/example/rideshareapp/login.fxml");
+        Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        Main.getInstance().logoutToLogin(window);
     }
 
     /**
